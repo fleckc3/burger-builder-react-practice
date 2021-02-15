@@ -7,12 +7,19 @@ const burger = ( props ) => {
     // extracts keys of object and turns it into an array
     // takes the ingredients object and puts in into an arrray
     // map() then loops through the array of ingredients passed
-    const transformedIngredients = Object.keys(props.ingredients)
+    let transformedIngredients = Object.keys(props.ingredients)
         .map(igKey => {
             return [...Array(props.ingredients[igKey])].map((_, i) => {
                 return <BurgerIngredient key={igKey + i} type={igKey} />;
             });
-        });
+            // Reduce - js function that flattens the transformedINgredients into one array
+        }).reduce((arr, el) => {
+            return arr.concat(el)
+        }, []);
+        if(transformedIngredients.length === 0) {
+            transformedIngredients = <p>Please start adding ingedients!</p>
+        }
+
     return (
         <div className={ classes.Burger }>
             <BurgerIngredient type="bread-top"/>
