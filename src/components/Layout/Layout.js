@@ -1,16 +1,20 @@
 import React from 'react';
-import Auxilliary from '../../hoc/Auxilliary';  // wrapping element
+import Aux from '../../hoc/Auxilliary';  // wrapping element
 import classes from './Layout.css';
+import Toolbar from '../Navigation/Toolbar/Toolbar';
+import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
+
 
 // functional component
 const layout = ( props ) => (
     
-    <Auxilliary>
-        <div>toolbar, SideDrawer, Backdrop</div>
+    <Aux>
+        <Toolbar/>
+        <SideDrawer/>
         <main className={ classes.Content }>
             {props.children}
         </main>
-    </Auxilliary>
+    </Aux>
 );
 
 export default layout;
