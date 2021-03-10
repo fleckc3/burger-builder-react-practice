@@ -1,5 +1,7 @@
 
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
+
 import Aux from '../../../hoc/Auxilliary/Auxilliary';
 import Button from '../../UI/Button/Button';
 
@@ -9,6 +11,10 @@ import Button from '../../UI/Button/Button';
 class OrderSummary extends Component {
     componentDidUpdate() {
         console.log('[OrderSummary] WillUpdate');
+    }
+
+    showCheckoutHandler = () => {
+
     }
    
     render () {
@@ -33,9 +39,10 @@ class OrderSummary extends Component {
                 <Button
                     btnType="Danger"
                     clicked={this.props.purchaseCancelled}>CANCEL</Button>
-                <Button
-                    btnType="Success"
-                    clicked={this.props.purchaseContinued}>CONTINUE</Button>
+              
+                    <Button
+                        btnType="Success"
+                        clicked={this.props.purchaseContinued}>CONTINUE</Button>
             </Aux>
         );
     }

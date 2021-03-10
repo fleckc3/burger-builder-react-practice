@@ -1,9 +1,14 @@
 import React from 'react';
+// import { withRouter } from 'react-router-dom';
+
 import classes from './Burger.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 //functional component
 const burger = ( props ) => {
+
+    console.log(props);
+
     // extracts keys of object and turns it into an array
     // takes the ingredients object and puts in into an arrray
     // map() then loops through the array of ingredients passed
@@ -17,7 +22,7 @@ const burger = ( props ) => {
             return arr.concat(el)
         }, []);
         if(transformedIngredients.length === 0) {
-            transformedIngredients = <p>Please start adding ingedients!</p>
+            transformedIngredients = <p>Please start adding ingredients!</p>
         }
 
     return (

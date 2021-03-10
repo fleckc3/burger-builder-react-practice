@@ -34,6 +34,8 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
+        console.log(this.props);
+
         axios.get('https://burger-builder-28bc3-default-rtdb.europe-west1.firebasedatabase.app/ingredients.json')
         .then(response => {
             this.setState({ingredients: response.data});
@@ -69,31 +71,25 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinuedHandler = () => {
-        // alert('You can continue!');
-        this.setState({loading: true});
-        const order = {
-            ingredients: this.state.ingredients, 
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Colin Fleck', 
-                adddress: {
-                    street: 'test Street',
-                    zipCode: '2222', 
-                    country: 'USA'
-                },
-                email: 'test@test.com'
-            },
-            deliveryMethod: 'fastest'
+        const queryParams = [];
+
+        // loops through the state of the ingredients
+        // encodes to be sent in URI --> ingredient property name = its property value
+        for(let i in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         }
-        axios.post('/orders.json', order)
-            .then(response => {
-                console.log(response);
-                this.setState({loading: false, purchasing: false});
-            })
-            .catch(error => {
-                console.log(error);
-                this.setState({loading: false, purchasing: false});
-            });
+
+        // passes the total price
+        queryParams.push('price=' + this.state.totalPrice);
+
+        // create query string out of the queryParams array with '&' between them
+        // added to the search param
+        const queryString = queryParams.join('&')
+
+        this.props.history.push({
+            pathname: '/checkout', 
+            search: '?' + queryString
+        });
     }
 
     // updates the ingredients and price in state via type
